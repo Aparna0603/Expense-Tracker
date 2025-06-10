@@ -1,54 +1,73 @@
-import React from 'react';
-import CARD_2 from "../../assets/images/card2.png";
+import React from "react";
+import CARD_1 from "../../assets/images/card1.png";
 import { LuTrendingUpDown } from "react-icons/lu";
-
 
 const StatsInfoCard = ({ icon, label, value, color }) => {
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md flex items-center gap-4 w-72 z-30">
-      <div className={`w-12 h-12 flex items-center justify-center text-white ${color} rounded-full drop-shadow-xl text-xl`}>
+    <div
+      className="bg-white p-5 rounded-2xl shadow-lg flex items-center gap-5 w-80 z-30 
+                 hover:shadow-2xl hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer"
+    >
+      <div
+        className={`w-14 h-14 flex items-center justify-center text-white ${color} rounded-full drop-shadow-xl text-2xl`}
+      >
         {icon}
       </div>
       <div>
-        <p className="text-gray-500 text-sm">{label}</p>
-        <h4 className="text-xl font-semibold text-gray-800">{value}</h4>
+        <p className="text-gray-500 text-sm tracking-wide">{label}</p>
+        <h4 className="text-2xl font-semibold text-gray-900">{value}</h4>
       </div>
     </div>
   );
 };
 
-
 const AuthLayout = ({ children }) => {
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-gray-100 relative">
-   
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md z-10">
-        <h2 className="text-lg font-bold mb-6 text-black">Expense Tracker</h2>
-        {children}
+    <div className="w-full h-screen bg-gradient-to-br from-gray-50 to-gray-200 flex flex-col md:flex-row relative font-sans overflow-hidden">
+      
+      {/* App Title */}
+      <div className="absolute top-6 left-8 z-20">
+        <h2 className="text-4xl font-extrabold bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400 bg-clip-text text-transparent">
+          Expense Tracker
+        </h2>
       </div>
 
-     
-      <div className="hidden md:block w-[40vw] h-screen bg-red-50 bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative">
+      {/* Form Section */}
+      <div className="flex-1 flex items-center justify-center px-6 z-10 mt-24 md:mt-0">
+        <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md">
+          {children}
+        </div>
+      </div>
 
-    
-        <div className="absolute top-[20%] right-[12%]">
+      {/* Right Panel */}
+      <div className="hidden md:flex w-[40vw] h-full bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 p-10 relative rounded-l-[3rem] overflow-hidden flex-col items-center justify-center gap-8">
+        
+        {/* Blue Blurred Background Shape */}
+        <div className="absolute w-60 h-60 rounded-[40px] bg-gradient-to-br from-blue-600 to-blue-800 top-8 left-8 z-0 shadow-lg opacity-90 blur-[1px]" />
+        
+        {/* Stats Card */}
+        <div className="z-10">
           <StatsInfoCard
             icon={<LuTrendingUpDown />}
-            label="Track Your Income And Expenses"
+            label="Track Your Income & Expenses"
             value="$430.00"
-            color="bg-red-500"
+            color="bg-blue-700"
           />
         </div>
-
-       
-        <div className="w-48 h-48 rounded-[40px] bg-red-500 absolute -top-7 -left-5 z-0" />
-
-       
-        <div className="w-48 h-56 rounded-[40px] border-[20px] border-red-600 absolute top-[35%] right-10 overflow-hidden z-10">
+        
+        {/* Motivational Text */}
+        <div className="z-10">
+          <p className="text-blue-900 font-medium text-lg leading-snug italic text-center">
+            “Small savings today lead to big dreams tomorrow.”
+          </p>
+        </div>
+        
+        {/* Decorative Image */}
+        <div className="w-64 h-80 rounded-[40px] border-8 border-blue-800 z-10 overflow-hidden shadow-xl">
           <img
-            src={CARD_2}
+            src={CARD_1}
             alt="Decorative card"
-            className="w-full h-full object-cover rounded-[20px]"
+            className="w-full h-full object-contain object-center rounded-[32px] bg-white"
           />
         </div>
       </div>
