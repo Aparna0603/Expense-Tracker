@@ -41,7 +41,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
             className='w-16 h-16 rounded-full object-cover'
           />
         ) : (
-          <div className='w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-gray-500'>
+          <div className='w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center text-gray-500'>
             <LuUser size={24} />
           </div>
         )}
@@ -49,7 +49,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
         <button
           type='button'
           onClick={onChooseFile}
-          className='text-sm text-blue-600 flex items-center gap-1'
+          className='text-sm text-blue-400 flex items-center gap-1'
         >
           <LuUpload /> Upload
         </button>

@@ -1,35 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout';
 import Input from '../../components/Inputs/Input';
 import { useNavigate, Link } from 'react-router-dom';
 import { validateEmail } from '../../utils/helper';
-
- // <-- Add this import
+import axiosInstance from '../../utils/axiosInstance'; // ✅ Fix 1: Import axios instance
+import { API_PATHS } from '../../utils/apiPaths';      // ✅ Fix 2: Import API paths
+import { UserContext } from '../../context/userContext'; // ✅ Fix 3: Import user context
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  const { updateUser } = useContext(UserContext); // ✅ Fix 4: Access context
+
   const navigate = useNavigate();
 
-  //Handle Login Form Submit
+  // Handle Login Form Submit
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if(!validateEmail(email)) {
+    if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
-    if(!password) {
+    if (!password) {
       setError("Please enter the password");
       return;
     }
     setError("");
 
-    // TODO: Your login API call here
+    try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
 
-  }
+      const { token, user } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(user);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
+  };
 
   return (
     <AuthLayout>
@@ -50,7 +71,7 @@ const Login = () => {
             value={password}
             onChange={({ target }) => setPassword(target.value)} 
             label="Password"
-            placeholder="Minimum 8 Characters"
+            placeholder="Min 8 Characters"
             type="password"
           />
 
@@ -62,7 +83,7 @@ const Login = () => {
 
           <p className='text-[13px] text-slate-800 mt-3'>
             Don't have an account?{" "}
-            <Link className='font-medium text-primary underline' to='/signup'>
+            <Link className='font-medium text-primary underline text-blue-500' to='/signup'>
               Signup
             </Link>
           </p>
