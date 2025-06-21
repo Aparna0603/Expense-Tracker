@@ -1,7 +1,7 @@
 // 📁 components/Dashboard/ExpenseTransactions.js
 import React from "react";
 import { LuArrowRight } from "react-icons/lu";
-import TransactionInfoCard from "../cards/TransactionInfoCard";
+import TransactionInfoCard from "../Cards/TransactionInfoCard";
 import moment from "moment";
 
 const ExpenseTransactions = ({ transactions, onSeeMore }) => {
